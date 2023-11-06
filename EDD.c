@@ -9,7 +9,7 @@ struct EDD
     int finishing_time; // Thời gian kết thúc
     int absolute_deadline; // Thời gian buộc phải hoàn thành
 };
-
+//Tính gía trị lớn nhất giữa 2 số
 int max(int a, int b) {
     return (a > b) ? a : b;
 }
@@ -30,21 +30,25 @@ int main() {
     //Tính số deadline
     int tb = sizeof(edd) / sizeof(edd[0]);
 
+    //Tính computation time và biểu diễn thành phần khác trong deadline
     printf("ID  |  START TIME |  FINISH TIME  |  COMPUTATION TIME  |  DEADLINE\n");
     printf("------------------------------------------------------------------\n");
 
     for(int i=0; i < tb; i++) {
         int computation_time = edd[i].finishing_time-edd[i].start_time;
-        printf("%2d  |  %2d         |  %2d           | %2d                 |  %2d\n",edd[i].id,edd[i].start_time,edd[i].finishing_time,computation_time,edd[i].absolute_deadline);
+        printf("%2d  |  %2d         |  %2d           | %2d                 |  %2d\n",
+        edd[i].id,edd[i].start_time,edd[i].finishing_time,
+        computation_time,edd[i].absolute_deadline);
     }
 
- 
+    //Tính thời gian trung bình
     int average_response_time = 0;
     for(int i=0; i < tb; i++){
         average_response_time += (edd[i].finishing_time - edd[i].start_time);
     }
     printf("Average response time: %d\n",average_response_time / tb);
 
+    //Tính độ trễ lớn nhất L
     int max_delay = 0;
     for(int i=0; i < tb; i++) {
         max_delay = max(max_delay,edd[i].finishing_time - edd[i].absolute_deadline);
